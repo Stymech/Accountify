@@ -1,0 +1,121 @@
+/*@font-face {
+    font-family: "Publica Sans Round";
+    src: url(../Fonts/PublicaSansRound-Rg.otf) format('opentype');
+}
+@font-face {
+    font-family: 'mooli';
+    src: url('~/Fonts/mooli.ttf') format('truetype');
+}*/
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+#cart-container {
+    display:inline;
+}
+#cart-container table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+#cart-container table thead {
+    font-weight: 700;
+}
+
+#cart-container table th {
+    text-align: left;
+    background: #525050e4;
+    color: #ffffff;
+    /* border: double; */
+    font-weight: 700;
+    padding: 6px;
+}
+
+#cart-container table td {
+    padding: 5px 5px;
+    border-style: groove none;
+    border-width: 1px;
+}
+
+#cart-container td input {
+    width: 70px;
+    height: 30px;
+    padding: 5px;
+}
+
+#articleSearch {
+    display: flex;
+    align-items: center; /* Vertically center the content */
+}
+
+
+#articleSearch .col-sm-6 {
+    padding: 0;
+}
+
+
+#articleInput, #articleQuantity, #btnAddArticle {
+    height: 100%; /* Set the height to 100% to match the parent (articleSearch) */
+}
+
+#articleSearch #quantity {
+    width: 90px;
+    display: inline;
+}
+
+#articleSearch button {
+    width: 150px;
+    display: inline;
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#articleDropdown li:hover {
+    background-color: grey;
+    color: aliceblue;
+}
+
+.button {
+    color: white;
+    border: 2px solid burlywood;
+    border-radius: 5px;
+    height: max-content;
+    width: auto;
+    min-width: 130px;
+    background-color: burlywood;
+    min-height: 38px;
+}
+
+#articleQuantity {
+    width: 50%;
+    height: 38px;
+    display: inline;
+    border-radius: 5px;
+    margin-left: 50%;
+}
+
+.button:hover {
+    background-color: white;
+    color: black;
+    transition: 0.5s ease;
+}

@@ -1,0 +1,93 @@
+﻿@page
+@using Accountify
+@model Accountify.Pages.Receipts.CreateModel
+@{
+    var listArticlesJson = Html.Raw(Model.ListArticlesJson);
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        var listArticles = @Html.Raw(Model.ListArticlesJson);
+    </script>
+</head>
+<body>
+    <br />
+    <h2>New Receipt</h2>
+
+    <form method="post" id="newReceipt">
+
+        <div class="row">
+            <!-- Buyer info -->
+            <section id="buyerInfo-container" class="col-sm-4">
+                <div class="form-group">
+                    <label class="col-form-label">Full name</label>
+                    <input name="BuyerName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Address</label>
+                    <input name="BuyerAddress" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Telephone num</label>
+                    <input name="BuyerTel" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Email</label>
+                    <input name="BuyerEmail" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Date</label>
+                    <input type="date" name="ReceiptDate" class="form-control">
+                </div>
+            </section>
+
+            <!--- Receipt items --->
+            <section id="cart-container" class="col-sm-8 my-5 ">
+                <table id="basket">
+                    <thead>
+                        <tr>
+                            <th>Remove</th>
+                            <th>ArticleID</th>
+                            <th>ArticleName</th>
+                            <th>Price (€)</th>
+                            <th>Quantity</th>
+                            <th>Subtotal (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="basketList">
+                        <!-- Selected items and quantities will be displayed here -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- Article selection -->
+        <label for="articleInput">Add Articles</label>
+        <div class="container-fluid">
+            <div class="form-group row" id="articleSearch">
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="articleInput" name="articleInput" placeholder="ID - Name - Price">
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="number" id="articleQuantity" class="form-control" value="1" />
+                        </div>
+                        <div class="col-6">
+                            <button type="button" id="btnAddArticle" class="button">Add to Receipt</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul id="articleDropdown" class="dropdown-menu"></ul>
+        <input id="basketData" name="basketData"/>
+        <input id="basketSum" name="basketSum"/>
+        <button type="submit" class="button" id="btnSubmit">Create Receipt</button>
+    </form>
+</body>

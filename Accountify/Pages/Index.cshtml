@@ -1,0 +1,97 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Clear filters
+        $(document).ready(function () {
+            $("#clearFiltersButton").click(function () {
+                // Clear the input values
+                $("#buyerIdFilter").val("");
+                $("#fromDateFilter").val("");
+                $("#toDateFilter").val("");
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".delete").click(function () {
+                var receiptId = parseInt($(this).data("receipt-id"));
+                if (confirm("Are you sure you want to delete this receipt?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete", "Receipts")',                       // No resource with given URL found ??????????????
+                        data: { receiptID: receiptId },
+                        dataType: 'json',
+                        success: function () {
+                            alert("Dela.");
+                        },
+                        error: function () {
+                            alert("An error occurred while deleting the receipt.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4">List of Receipts</h1>
+        <br />
+        <a class="btn btn-primary btn-sm" href="/Receipts/Create">New Receipt</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><a asp-page="./Index" asp-route-sort="ReceiptID">ReceiptID</a></th>
+                    <th><a asp-page="./Index" asp-route-sort="BuyerID">BuyerID</a></th>
+                    <th><a asp-page="./Index" asp-route-sort="BuyerName">BuyerName</a></th>
+                    <th><a asp-page="./Index" asp-route-sort="BuyerAddress">BuyerAddress</a></th>
+                    <th><a asp-page="./Index" asp-route-sort="ReceiptDate">ReceiptDate</a></th>
+                    <th><a asp-page="./Index" asp-route-sort="TotalAmount">TotalAmount</a></th>
+                    <th><a asp-page="./Index" asp-route-sort="CompanyInfo">CompanyInfo</a></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.listReceipts)
+                {
+                    <tr>
+                        <td>@item.ReceiptID</td>
+                        <td>@item.BuyerID</td>
+                        <td>@item.BuyerName</td>
+                        <td>@item.BuyerAddress</td>
+                        <td>@item.ReceiptDate</td>
+                        <td>@item.TotalAmount</td>
+                        <td>@item.CompanyInfo</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="/Receipts/Edit?id=@item.ReceiptID">Edit</a>
+                            <button class="delete" data-receipt-id="@item.ReceiptID">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <form method="post">
+            <div>
+                <label for="buyerIdFilter">Filter by Buyer ID:</label>
+                <input type="number" id="buyerIdFilter" asp-for="BuyerIdFilter" />
+            </div>
+
+            <div>
+                <label for="fromDateFilter">From Date:</label>
+                <input type="date" id="fromDateFilter" asp-for="FromDateFilter" />
+            </div>
+
+            <div>
+                <label for="toDateFilter">To Date:</label>
+                <input type="date" id="toDateFilter" asp-for="ToDateFilter" />
+            </div>
+            <button type="button" id="clearFiltersButton">Clear Filters</button>
+            <button type="submit" asp-page-handler="ApplyFilters">Apply Filters</button>
+        </form>
+    </div>
+</body>
